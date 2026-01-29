@@ -72,10 +72,8 @@ class HotelReservation:
             
         except ValueError as ve:
             print(f"\n✗ Error: {ve}")
-            raise
         except TypeError as te:
             print(f"\n✗ Error: {te}")
-            raise
     
     def display_reservation(self, room_number):
         """
@@ -107,7 +105,6 @@ class HotelReservation:
             
         except (ValueError, TypeError) as e:
             print(f"\n✗ Error: {e}")
-            raise
     
     def cancel_reservation(self, room_number):
         """
@@ -136,7 +133,6 @@ class HotelReservation:
             
         except (ValueError, TypeError) as e:
             print(f"\n✗ Error: {e}")
-            raise
     
     def display_available_rooms(self):
         """Display all available rooms."""
@@ -224,7 +220,7 @@ def main():
                     hotel.make_reservation(guest_name, room_number, check_in_date, 
                                          check_out_date, num_guests)
                 except (ValueError, TypeError):
-                    print("Reservation failed. Please try again.")
+                    pass  # Error already printed in method
             
             elif choice == 2:
                 # View reservation
@@ -233,7 +229,7 @@ def main():
                     room_number = get_integer_input("Enter room number: ")
                     hotel.display_reservation(room_number)
                 except (ValueError, TypeError):
-                    print("Could not display reservation.")
+                    pass  # Error already printed in method
             
             elif choice == 3:
                 # Cancel reservation
@@ -242,7 +238,7 @@ def main():
                     room_number = get_integer_input("Enter room number to cancel: ")
                     hotel.cancel_reservation(room_number)
                 except (ValueError, TypeError):
-                    print("Cancellation failed. Please try again.")
+                    pass  # Error already printed in method
             
             elif choice == 4:
                 # View available rooms
