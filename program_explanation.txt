@@ -1,0 +1,61 @@
+HOTEL RESERVATION SYSTEM - PROGRAM EXPLANATION
+===============================================
+
+1. OVERALL DESIGN AND CLASS STRUCTURE
+
+The program uses a single HotelReservation class to manage hotel bookings.
+
+Class Structure:
+- HotelReservation class: Main class that handles all reservation operations
+- Attributes: reservations (dictionary) and available_rooms (list)
+- Methods: make_reservation(), display_reservation(), cancel_reservation(), 
+  display_available_rooms(), display_all_reservations()
+
+Why this structure?
+- Simple and easy to understand - one class manages everything
+- Dictionary stores reservations efficiently using room numbers as keys
+- List tracks available rooms for quick lookup
+- Each method has a single responsibility (making, viewing, or canceling reservations)
+- Helper function (get_integer_input) validates user input separately
+
+
+2. USER INPUT HANDLING AND EXCEPTION HANDLING
+
+User Input Handling:
+- input() function gets user data (names, dates, menu choices)
+- get_integer_input() helper function validates numeric inputs
+- Input is validated before processing (type checks, range checks)
+
+Role of Exception Handling (try-except):
+- Prevents crashes from invalid input (non-numeric values, wrong types)
+- Catches ValueError: Invalid room numbers, negative guests, empty names
+- Catches TypeError: Wrong data types (string instead of integer)
+- Shows user-friendly error messages instead of program crashes
+- Allows program to continue running even after errors
+
+
+3. LIMITATION AND IMPROVEMENT
+
+Current Limitation:
+- No date validation - the program accepts any string as a date
+- Users can enter "abc123" or past dates, which doesn't make sense
+
+How to Improve:
+- Use datetime module to validate dates are in proper format (YYYY-MM-DD)
+- Check that check-in date is before check-out date
+- Ensure dates are not in the past
+- Add a date comparison method to the class
+- This would prevent logical errors and improve data quality
+
+Example improvement:
+from datetime import datetime
+
+def validate_dates(check_in, check_out):
+    try:
+        in_date = datetime.strptime(check_in, "%Y-%m-%d")
+        out_date = datetime.strptime(check_out, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError("Invalid date format. Use YYYY-MM-DD")
+    
+    if out_date <= in_date:
+        raise ValueError("Check-out must be after check-in")
